@@ -12,6 +12,7 @@ public:
 	void Gauss_proste();
 	void Gauss_odwrotne();
 	void WyswietlWyniki();
+	void WyswietlMacierz();
 
 
 };
@@ -20,17 +21,22 @@ int main()
 {
 	TMacierz a(4);
 	a.WczytajDane();
+	std::cout << "Wczytano wyniki\n";
+	a.WyswietlMacierz();
 	a.Gauss_proste();
+	std::cout << "Wyliczono macierz\n";
+	a.WyswietlMacierz();
 	a.Gauss_odwrotne();
+	std::cout << "Wyliczono wyniki\n";
 	a.WyswietlWyniki();
 	return 0;
 }
 
 
 TMacierz::TMacierz(int rozmiar) : _rozmiar(rozmiar) {
-	_m = new double*[_rozmiar + 1];
-	for (int i = 0; i < _rozmiar + 1; i++) {
-		_m[i] = new double[_rozmiar];
+	_m = new double*[_rozmiar];
+	for (int i = 0; i < _rozmiar; i++) {
+		_m[i] = new double[_rozmiar + 1];
 	}
 	_x = new double[_rozmiar];
 }
@@ -48,18 +54,17 @@ void TMacierz::WczytajDane() {
 
 }
 void TMacierz::Gauss_proste() {
-	double podstawa;
-	for (int i = 0; i < _rozmiar; i++) {
-		podstawa = _m[i][i];
-
-		if (podstawa != 0) {
-			for (int j = i + 1; j < _rozmiar; j++) {
-				for (int k = 0; k < _rozmiar + 1; k++)
-					_m[j][k] -= _m[j - 1][k] * (_m[j][k] / _m[j - 1][k]);
-			}
-
+	double mianownik;
+	double licznik;
+	
+	for (int k = 1; k < _rozmiar; k++) {
+		for (int i = k; i < _rozmiar; i++) {
+			for (int j = 0; j < _rozmiar + 1; j++)
+				_m[i][j] -= (_m[i][k] / _m[k][k]) * _m[k][j];
 		}
+		
 	}
+
 
 }
 void TMacierz::Gauss_odwrotne() {
@@ -80,5 +85,15 @@ void TMacierz::WyswietlWyniki()
 	for (int i = 0; i < _rozmiar; i++)
 	{
 		std::cout << "x" << i + 1 << " = " << _x[i] << '\n';
+	}
+}
+
+void TMacierz::WyswietlMacierz()
+{
+	for (int i = 0; i < _rozmiar; i++) {
+		for (int j = 0; j < _rozmiar+1; j++) {
+			std::cout << _m[i][j] << ' ';
+		}
+		std::cout << '\n';
 	}
 }
