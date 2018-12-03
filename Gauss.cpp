@@ -20,6 +20,9 @@ int main()
 {
 	TMacierz a(4);
 	a.WczytajDane();
+	a.Gauss_proste();
+	a.Gauss_odwrotne();
+	a.WyswietlWyniki();
 	return 0;
 }
 
@@ -60,10 +63,22 @@ void TMacierz::Gauss_proste() {
 
 }
 void TMacierz::Gauss_odwrotne() {
-	_x[_rozmiar] = (_m[_rozmiar][_rozmiar + 1] / _m[_rozmiar][_rozmiar]);
-	for (int i = _rozmiar - 1; i >= 0; i--) {
-		for (int j = _rozmiar; j > i; j--)
-			_m[_rozmiar + 1][i] -= _m[i][j];
+	_x[_rozmiar] = (_m[_rozmiar + 1][_rozmiar] / _m[_rozmiar][_rozmiar]);
+	int i;
+	for (i = _rozmiar - 1; i >= 0; i--) {
+		int j;
+		for (j = _rozmiar; j > i; j--)
+			_m[_rozmiar + 1][i] -= _m[j][i];
+		_x[j] = (_m[_rozmiar + 1][i] / _m[j][i]);
 	}
+	
+}
 
+void TMacierz::WyswietlWyniki()
+{
+	std::cout << "wyniki:\n";
+	for (int i = 0; i < _rozmiar; i++)
+	{
+		std::cout << "x" << i + 1 << " = " << _x[i] << '\n';
+	}
 }
