@@ -21,7 +21,10 @@ public:
 
 int main()
 {
-	TMacierz a(4);
+	std::cout << "Podaj rozmiar macierzy (bez wektora): ";
+	int rozmiar;
+	std::cin >> rozmiar;
+	TMacierz a(rozmiar);
 	a.WczytajDane();
 	//a.test();
 	//std::cout << "Wczytano wyniki\n";
@@ -50,10 +53,15 @@ TMacierz::~TMacierz() {
 
 void TMacierz::WczytajDane() {
 	for (int i = 0; i < _rozmiar; i++)
-		for (int j = 0; j < _rozmiar + 1; j++) {
+		for (int j = 0; j < _rozmiar; j++) {
 			std::cout << "Podaj w(" << i + 1 << ',' << j + 1 << "):";
 			std::cin >> _m[i][j];
 		}
+	std::cout << "Podaj wektor: \n";
+	for (int i = 0; i < _rozmiar; i++) {
+		std::cout << "Podaj w(" << i << ',' << _rozmiar << "):";
+		std::cin >> _m[i][_rozmiar];
+	}
 
 }
 void TMacierz::Gauss_proste() {
