@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 class TMacierz
 {
 private:
@@ -13,6 +14,7 @@ public:
 	void Gauss_odwrotne();
 	void WyswietlWyniki();
 	void WyswietlMacierz();
+	void test();
 
 
 };
@@ -20,7 +22,7 @@ public:
 int main()
 {
 	TMacierz a(4);
-	a.WczytajDane();
+	a.test();
 	std::cout << "Wczytano wyniki\n";
 	a.WyswietlMacierz();
 	a.Gauss_proste();
@@ -57,10 +59,13 @@ void TMacierz::Gauss_proste() {
 	double mianownik;
 	double licznik;
 	
-	for (int k = 1; k < _rozmiar; k++) {
-		for (int i = k; i < _rozmiar; i++) {
-			for (int j = 0; j < _rozmiar + 1; j++)
-				_m[i][j] -= (_m[i][k] / _m[k][k]) * _m[k][j];
+	for (int k = 0; k < _rozmiar-1; k++) {
+		mianownik = _m[k][k];
+		for (int i = k+1; i < _rozmiar; i++) {
+			licznik = _m[i][k];
+			for (int j = 0; j < _rozmiar + 1; j++) {
+				_m[i][j] -= _m[k][j] * (licznik / mianownik);
+			}
 		}
 		
 	}
@@ -68,13 +73,13 @@ void TMacierz::Gauss_proste() {
 
 }
 void TMacierz::Gauss_odwrotne() {
-	_x[_rozmiar] = (_m[_rozmiar + 1][_rozmiar] / _m[_rozmiar][_rozmiar]);
-	int i;
-	for (i = _rozmiar - 1; i >= 0; i--) {
+	_x[_rozmiar] = (_m[_rozmiar][_rozmiar+1] / _m[_rozmiar][_rozmiar]);
+	for (int i = _rozmiar - 1; i >= 0; i--) {
 		int j;
-		for (j = _rozmiar; j > i; j--)
-			_m[_rozmiar + 1][i] -= _m[j][i];
-		_x[j] = (_m[_rozmiar + 1][i] / _m[j][i]);
+		for (j = _rozmiar; j > i; j--) {
+			_m[i][_rozmiar + 1] -= _m[i][j] * _x[j];
+		}
+		_x[j - 1] = _m[i][_rozmiar + 1] / _m[i][j - 1];
 	}
 	
 }
@@ -84,7 +89,7 @@ void TMacierz::WyswietlWyniki()
 	std::cout << "wyniki:\n";
 	for (int i = 0; i < _rozmiar; i++)
 	{
-		std::cout << "x" << i + 1 << " = " << _x[i] << '\n';
+		std::cout  << "x" << i + 1 << " = " << _x[i] << '\n';
 	}
 }
 
@@ -92,8 +97,33 @@ void TMacierz::WyswietlMacierz()
 {
 	for (int i = 0; i < _rozmiar; i++) {
 		for (int j = 0; j < _rozmiar+1; j++) {
-			std::cout << _m[i][j] << ' ';
+			std::cout << std::setw(5) << _m[i][j] << ' ';
 		}
 		std::cout << '\n';
 	}
+}
+
+void TMacierz::test()
+{
+	_m[0][0] = 2;
+	_m[0][1] = 4;
+	_m[0][2] = 2;
+	_m[0][3] = 0;
+	_m[0][4] = 4;
+	_m[1][0] = 1;
+	_m[1][1] = 0;
+	_m[1][2] = -1;
+	_m[1][3] = 1;
+	_m[1][4] = 2;
+	_m[2][0] = 0;
+	_m[2][1] = 1;
+	_m[2][2] = 3;
+	_m[2][3] = -1;
+	_m[2][4] = 0;
+	_m[3][0] = 2;
+	_m[3][1] = 1;
+	_m[3][2] = 2;
+	_m[3][3] = 1;
+	_m[3][4] = 6;
+
 }
