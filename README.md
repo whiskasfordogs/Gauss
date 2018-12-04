@@ -1,2 +1,2 @@
 # Gauss
-Metoda Eliminacji Gaussa; Metody Numeryczne
+Metoda Eliminacji Gaussa; Metody Numeryczne bez przestawień
