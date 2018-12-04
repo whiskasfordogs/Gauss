@@ -22,14 +22,15 @@ public:
 int main()
 {
 	TMacierz a(4);
-	a.test();
-	std::cout << "Wczytano wyniki\n";
-	a.WyswietlMacierz();
+	a.WczytajDane();
+	//a.test();
+	//std::cout << "Wczytano wyniki\n";
+	//a.WyswietlMacierz();
 	a.Gauss_proste();
-	std::cout << "Wyliczono macierz\n";
-	a.WyswietlMacierz();
+	//std::cout << "Wyliczono macierz\n";
+	//a.WyswietlMacierz();
 	a.Gauss_odwrotne();
-	std::cout << "Wyliczono wyniki\n";
+	//std::cout << "Wyliczono wyniki\n";
 	a.WyswietlWyniki();
 	return 0;
 }
@@ -73,24 +74,28 @@ void TMacierz::Gauss_proste() {
 
 }
 void TMacierz::Gauss_odwrotne() {
-	_x[_rozmiar] = (_m[_rozmiar][_rozmiar+1] / _m[_rozmiar][_rozmiar]);
-	for (int i = _rozmiar - 1; i >= 0; i--) {
+	_x[_rozmiar-1] = (_m[_rozmiar-1][_rozmiar] / _m[_rozmiar-1][_rozmiar-1]);
+	int i;
+	for (i = _rozmiar - 2; i >= 0; i--) {
 		int j;
-		for (j = _rozmiar; j > i; j--) {
-			_m[i][_rozmiar + 1] -= _m[i][j] * _x[j];
+		for (j = _rozmiar-1; j > i; j--) {
+			_m[i][_rozmiar] -= _m[i][j] * _x[j];
 		}
-		_x[j - 1] = _m[i][_rozmiar + 1] / _m[i][j - 1];
+		_x[i] = _m[i][_rozmiar] / _m[i][j];
 	}
+	
 	
 }
 
 void TMacierz::WyswietlWyniki()
 {
 	std::cout << "wyniki:\n";
+	std::cout << "x = [";
 	for (int i = 0; i < _rozmiar; i++)
 	{
-		std::cout  << "x" << i + 1 << " = " << _x[i] << '\n';
+		std::cout  << _x[i] << ' ';
 	}
+	std::cout << "]\n";
 }
 
 void TMacierz::WyswietlMacierz()
