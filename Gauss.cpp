@@ -26,6 +26,7 @@ int main()
 	std::cin >> rozmiar;
 	TMacierz a(rozmiar);
 	a.WczytajDane();
+	//do uzywania testu trzeba ustawic rozmiar na 4
 	//a.test();
 	//std::cout << "Wczytano wyniki\n";
 	//a.WyswietlMacierz();
