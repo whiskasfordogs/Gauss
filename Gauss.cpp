@@ -20,7 +20,7 @@ public:
 };
 
 int main()
-{
+{	
 	std::cout << "Podaj rozmiar macierzy (bez wektora): ";
 	int rozmiar;
 	std::cin >> rozmiar;
@@ -84,8 +84,8 @@ void TMacierz::Gauss_proste() {
 }
 void TMacierz::Gauss_odwrotne() {
 	_x[_rozmiar-1] = (_m[_rozmiar-1][_rozmiar] / _m[_rozmiar-1][_rozmiar-1]);
-	int i;
-	for (i = _rozmiar - 2; i >= 0; i--) {
+
+	for (int i = _rozmiar - 2; i >= 0; i--) {
 		int j;
 		for (j = _rozmiar-1; j > i; j--) {
 			_m[i][_rozmiar] -= _m[i][j] * _x[j];
