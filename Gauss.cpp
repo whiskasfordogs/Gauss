@@ -60,7 +60,7 @@ void TMacierz::WczytajDane() {
 		}
 	std::cout << "Podaj wektor: \n";
 	for (int i = 0; i < _rozmiar; i++) {
-		std::cout << "Podaj w(" << i << ',' << _rozmiar << "):";
+		std::cout << "Podaj w(" << i + 1 << ',' << _rozmiar + 1 << "):";
 		std::cin >> _m[i][_rozmiar];
 	}
 
