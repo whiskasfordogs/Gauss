@@ -20,13 +20,14 @@ public:
 };
 
 int main()
-{	
+{
 	std::cout << "Podaj rozmiar macierzy (bez wektora): ";
 	int rozmiar;
 	std::cin >> rozmiar;
 	TMacierz a(rozmiar);
 	a.WczytajDane();
 	//do uzywania testu trzeba ustawic rozmiar na 4
+	//TMacierz a(4);
 	//a.test();
 	//std::cout << "Wczytano wyniki\n";
 	//a.WyswietlMacierz();
@@ -68,7 +69,7 @@ void TMacierz::WczytajDane() {
 void TMacierz::Gauss_proste() {
 	double mianownik;
 	double licznik;
-	
+
 	for (int k = 0; k < _rozmiar-1; k++) {
 		mianownik = _m[k][k];
 		for (int i = k+1; i < _rozmiar; i++) {
@@ -77,7 +78,7 @@ void TMacierz::Gauss_proste() {
 				_m[i][j] -= _m[k][j] * (licznik / mianownik);
 			}
 		}
-		
+
 	}
 
 
@@ -92,8 +93,8 @@ void TMacierz::Gauss_odwrotne() {
 		}
 		_x[i] = _m[i][_rozmiar] / _m[i][j];
 	}
-	
-	
+
+
 }
 
 void TMacierz::WyswietlWyniki()
